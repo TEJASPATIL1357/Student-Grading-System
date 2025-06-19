@@ -103,6 +103,20 @@
       box-shadow: 0 0 10px #2c80b4;
     }
 
+    .form-card a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #3498db;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .form-card a:hover {
+      text-decoration: underline;
+    }
+
     .error {
       color: red;
       text-align: center;
@@ -199,6 +213,7 @@
         {% if error %}
         <p class="error">{{ error }}</p>
         {% endif %}
+        <a href="/register">New user? Register here</a>
       </div>
     </div>
 

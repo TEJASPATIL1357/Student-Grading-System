@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Student Grading System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #e6f0f8;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      max-width: 1100px;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      flex-wrap: wrap;
+    }
+
+    .image-section {
+      flex: 1;
+      position: relative;
+      min-height: 400px;
+      overflow: hidden;
+    }
+
+    .image-section::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('static/college.jpg') no-repeat center center/cover;
+      filter: blur(4px);
+      z-index: 1;
+    }
+
+    .info-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .info-content h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    .info-content p {
+      font-size: 16px;
+      line-height: 1.5;
+      text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+
+    .form-section {
+      flex: 1;
+      padding: 40px 30px;
+      background: #f4faff;
+      border-top-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+
+    .form-section h1 {
+      font-size: 26px;
+      color: #3498db;
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 20px;
+    }
+
+    form input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    form button {
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    form button:hover {
+      background: #2c80b4;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .form-section {
+        border-radius: 20px;
+        padding: 25px;
+      }
+
+      .image-section {
+        height: 250px;
+      }
+
+      .info-content h2 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="image-section">
+      <div class="info-content">
+        <h2>R. C. Patel Institute of Technology</h2>
+        <p>Join our Student Grading System.<br>
+        A secure and smart platform for teachers to manage students efficiently.</p>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h1>User Registration</h1>
+      <form action="/register" method="POST">
+        <input type="text" name="username" placeholder="Enter Username" required />
+        <input type="password" name="password" placeholder="Enter Password" required />
+        <button type="submit">Register</button>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
