@@ -1,0 +1,68 @@
+body {
+    background: url('college.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2); /* Light overlay for better readability */
+    backdrop-filter: blur(8px);
+    z-index: -1;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+.typing-effect{
+    width: 40ch;
+    color: black;
+    font-size: 2rem;
+    font-weight: bold;
+    overflow: hidden    ;
+    white-space: nowrap;
+    border-right: 2px  solid;
+    font-family: Underdog;
+    animation: typing 2s steps(15), blink 0.5s step-end infinite; 
+
+}
+@keyframes typing{
+    from { width: 0; }
+}
+@keyframes blink{
+    50% { border-color: transparent; }}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+
+button:hover {
+    background: #0056b3;
+}

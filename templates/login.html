@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teacher Login</title>
+
+  <!-- Orbitron Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #e8f0f8;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main-container {
+      display: flex;
+      width: 90%;
+      max-width: 1100px;
+      height: 80vh;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .left-container {
+      flex: 1;
+      background: #f0f8ff;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .title-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 30px;
+      background: linear-gradient(90deg, #3498db, #2ecc71);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+      letter-spacing: 2px;
+    }
+
+    .form-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      padding: 30px;
+      border-radius: 20px;
+      transition: transform 0.5s;
+      box-shadow: 0 0 12px rgba(52, 152, 219, 0.2);
+    }
+
+    .form-card:hover {
+      transform: rotateY(2deg) scale(1.02);
+      box-shadow: 0 0 25px rgba(52, 152, 219, 0.5);
+    }
+
+    .form-card h1 {
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .form-card input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .form-card button {
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-card button:hover {
+      background: #2c80b4;
+      box-shadow: 0 0 10px #2c80b4;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .right-container {
+      flex: 1;
+      background: url('static/college.jpg') no-repeat center center/cover;
+      color: white;
+      padding: 40px;
+      position: relative;
+    }
+
+    .right-container::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .info-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .info-content h2 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      text-shadow: 0 0 10px #00c3ff;
+    }
+
+    .info-content p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .typing-effect {
+      animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      border-right: 3px solid white;
+      width: 100%;
+      max-width: 100%;
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent }
+      50% { border-color: white }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .right-container {
+        display: none;
+      }
+
+      .left-container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-container">
+    <div class="left-container">
+      <h2 class="title-heading">STUDENT GRADING SYSTEM</h2>
+      <div class="form-card">
+        <p class="typing-effect">Secure Login for Teachers & Admins !!!</p>
+        <h1>Teacher Login</h1>
+        <form action="/login" method="post">
+          <input type="text" name="username" placeholder="Username" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <button type="submit">Login</button>
+        </form>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="right-container">
+      <div class="info-content">
+        <h2>R. C. Patel Institute of Technology, Shirpur</h2>
+        <p>
+          Empowering education through innovation.<br><br>
+          This web system is a secure platform for teachers and admins to manage student grading efficiently.<br><br>
+          Welcome to the future of digital academics!
+        </p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

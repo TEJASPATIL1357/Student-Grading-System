@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Progress</title>
+    <style>
+        
+         body {
+  background: linear-gradient(to right, #f3e7e9, #e3eeff), 
+              url('https://www.transparenttextures.com/patterns/cubes.png');
+  background-blend-mode: multiply;
+}
+
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .card {
+            width: 500px;
+            height: 500px;
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.9s;
+            transform-style: preserve-3d;
+        }
+
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card-front {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        img.chart-img, img.college-img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #0077cc;
+            color: white;
+        }
+
+        .manual-feedback textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: vertical;
+        }
+
+        .send-button {
+            padding: 12px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .send-button:hover {
+            background-color: #005ea6;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Progress Report for Roll Number: {{ roll_number }}</h2>
+
+    <div class="container">
+
+        <!-- 📊 Chart Card -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <h3>Progress Chart</h3>
+                    <img src="{{ chart_path }}" alt="Progress Chart" class="chart-img">
+                </div>
+                <div class="card-back">
+                    <div>
+                        <h3>RCPIT College</h3>
+                        <img src="static/college.jpg" alt="RCPIT Logo" class="college-img">
+                    </div>
+                    <form method="post" action="/send_report">
+                        <input type="hidden" name="roll_number" value="{{ roll_number }}">
+                        <button class="send-button" type="submit">📧 Send Report to Parents</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 💬 Feedback Card -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <h3>Performance Feedback</h3>
+                    <table>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Marks</th>
+                            <th>Grade</th>
+                            <th>Remark</th>
+                        </tr>
+                        {% for subject, marks, grade, remark in results %}
+                        <tr>
+                            <td>{{ subject }}</td>
+                            <td>{{ marks }}</td>
+                            <td>{{ grade }}</td>
+                            <td>{{ remark }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="card-back">
+                    <div>
+                        <h3>Teacher’s Feedback</h3>
+                        <form method="post" action="/send_report">
+                            <input type="hidden" name="roll_number" value="{{ roll_number }}">
+                            <textarea name="manual_feedback" placeholder="Write feedback for parents..."></textarea>
+                            <button class="send-button" type="submit">📧 Send Report to Parents</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

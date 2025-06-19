@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Grading System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f8ff, #e6f7ff);
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 300px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #fff;
+        }
+
+        .sidebar input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .student {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #34495e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .student:hover {
+            background-color: #3b5998;
+        }
+
+        .student-info {
+            flex: 1;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .form-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 6px solid #2980b9;
+        }
+
+        .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .form-section h3 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #2ecc71, #3498db);
+        }
+    </style>
+
+    <script>
+        function filterStudents() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const studentList = document.getElementsByClassName("student");
+            for (let student of studentList) {
+                const name = student.querySelector(".student-info").textContent.toLowerCase();
+                student.style.display = name.includes(searchInput) ? "flex" : "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Student List</h3>
+        <input type="text" id="searchInput" onkeyup="filterStudents()" placeholder="Search by name or roll number">
+        {% for student in students %}
+        <div class="student">
+            <div class="student-info">
+                <strong>{{ student[1] }}</strong><br>
+                Roll No: {{ student[2] }}
+            </div>
+            <form method="POST" action="/delete_student/{{ student[2] }}" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h2>Welcome, {{ user }}</h2>
+
+        <div class="form-container">
+            <!-- Add Student -->
+         <div class="form-section">
+    <h3>Add Student</h3>
+    <form action="/add_student" method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="roll_number" placeholder="Roll Number" required>
+        <input type="email" name="parent_email" placeholder="Parent's Email" required>
+        <button type="submit">Add Student</button>
+    </form>
+</div>
+
+
+            <!-- Add Grade -->
+            <div class="form-section">
+                <h3>Add Grade</h3>
+                <form action="/grade" method="POST">
+                    <input type="text" name="roll_number" placeholder="Roll Number" required>
+                    <input type="text" name="subject" placeholder="Subject" required>
+                    <input type="number" name="marks" placeholder="Marks" required>
+                    <button type="submit">Add Grade</button>
+                </form>
+            </div>
+
+            <!-- Check Progress -->
+            <div class="form-section">
+                <h3>Check Progress</h3>
+                <form action="/progress" method="POST">
+                    <input type="text" name="roll_number" placeholder="Roll Number" required>
+                    <button type="submit">View Progress</button>
+                </form>
+            </div>
+
+            <!-- Send Report -->
+            <div class="form-section">
+                <h3>Send Report</h3>
+                <form action="/send_report" method="POST">
+                    <input type="text" name="roll_number" placeholder="Roll Number" required>
+                    <button type="submit">Send Email</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
